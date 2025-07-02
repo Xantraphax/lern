@@ -1,4 +1,4 @@
 <kurs name="Klasse 6">
-  <fach name="Mathematik" pfad="klasse6/faecher/mathe/inhalte.xml" />
-  <fach name="Deutsch" pfad="klasse6/faecher/deutsch/inhalte.xml" />
+  <thema name="Mathematik" pfad="klasse6/faecher/mathe/inhalte.xml" />
+  <thema name="Deutsch" pfad="klasse6/faecher/deutsch/inhalte.xml" />
 </kurs>
