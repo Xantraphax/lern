@@ -12,7 +12,7 @@
   <script>
     async function ladeAbschnitte() {
       try {
-        const res = await fetch("inhalte.xml");
+        const res = await fetch("data/inhalte.xml");
         const xmlText = await res.text();
         const parser = new DOMParser();
         const xml = parser.parseFromString(xmlText, "text/xml");
