@@ -44,11 +44,11 @@
 </head>
 <body>
   <header>
-    <h1 id="seitentitel">Lade Klasse...</h1>
+    <h1 id="seitentitel">Lade Kurse...</h1>
   </header>
     
 
-  <nav id="fächerNav">Lade Fächer...</nav>
+  <nav id="themenNav">Lade Themen...</nav>
   <main id="inhalteContainer"></main>
   <div style="padding: 1rem; background: #f4f4f4;">
     <a href="index.html" style="
@@ -66,7 +66,7 @@
     const params = new URLSearchParams(location.search);
     const xmlPfad = params.get("inhalte");
 
-    async function ladeFächerUndNav() {
+    async function ladeThemenUndNav() {
       if (!xmlPfad) return;
 
       const res = await fetch(xmlPfad);
@@ -74,16 +74,16 @@
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlText, "text/xml");
 
-      const klasseName = xml.documentElement.getAttribute("name");
-      document.getElementById("seitentitel").textContent = klasseName || "Lerninhalte";
+      const kursName = xml.documentElement.getAttribute("name");
+      document.getElementById("seitentitel").textContent = kursName || "Lerninhalte";
 
-      const fächer = Array.from(xml.getElementsByTagName("fach"));
-      const nav = document.getElementById("fächerNav");
+      const themen = Array.from(xml.getElementsByTagName("thema"));
+      const nav = document.getElementById("themenNav");
       nav.innerHTML = "";
 
-      fächer.forEach((fach, index) => {
-        const name = fach.getAttribute("name");
-        const pfad = fach.getAttribute("pfad");
+      themen.forEach((thema, index) => {
+        const name = thema.getAttribute("name");
+        const pfad = thema.getAttribute("pfad");
 
         const button = document.createElement("button");
         button.textContent = name;
@@ -97,11 +97,11 @@
 
         nav.appendChild(button);
 
-        if (index === 0) ladeAbschnitte(pfad, name); // Lade erstes Fach direkt
+        if (index === 0) ladeAbschnitte(pfad, name); // Lade erstes Thema direkt
       });
     }
 
-    async function ladeAbschnitte(pfad, fachname) {
+    async function ladeAbschnitte(pfad, themaname) {
       const res = await fetch(pfad);
       const xmlText = await res.text();
       const parser = new DOMParser();
@@ -109,7 +109,7 @@
 
       const abschnitte = xml.getElementsByTagName("abschnitt");
       const container = document.getElementById("inhalteContainer");
-      container.innerHTML = `<h2>${fachname}</h2>`;
+      container.innerHTML = `<h2>${themaname}</h2>`;
 
       for (let abschnitt of abschnitte) {
         const titel = abschnitt.getAttribute("titel");
@@ -128,7 +128,7 @@
       }
     }
 
-    ladeFächerUndNav();
+    ladeThemenUndNav();
   </script>
 </body>
 </html>
