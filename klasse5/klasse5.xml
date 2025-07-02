@@ -1,4 +1,4 @@
-<klasse name="Klasse 5">
+<kurs name="Klasse 5">
   <fach name="Mathematik" pfad="klasse5/faecher/mathe/inhalte.xml" />
   <fach name="Deutsch" pfad="klasse5/faecher/deutsch/inhalte.xml" />
   <fach name="Englisch" pfad="klasse5/faecher/deutsch/inhalte.xml" />
@@ -6,4 +6,4 @@
   <fach name="Ethik" pfad="klasse5/faecher/deutsch/inhalte.xml" />
   <fach name="Musik" pfad="klasse5/faecher/deutsch/inhalte.xml" />
   <fach name="Physik" pfad="klasse5/faecher/deutsch/inhalte.xml" />
-</klasse>
+</kurs>
