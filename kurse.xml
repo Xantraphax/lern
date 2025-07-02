@@ -1,0 +1,4 @@
+<kurse>
+  <kurs name="Klasse 5" pfad="kurs5/kurs5.xml" />
+  <kurs name="Klasse 6" pfad="kurs6/kurs6.xml" />
+</klassen>
