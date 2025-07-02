@@ -1,4 +1,0 @@
-<faecher>
-  <fach name="Mathematik" id="mathe" pfad="mathe/inhalte.xml" />
-  <fach name="Deutsch" id="deutsch" pfad="deutsch/inhalte.xml" />
-</faecher>
