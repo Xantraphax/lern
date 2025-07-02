@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+section {
+  background: white;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px #ccc;
+}
+
+details {
+  margin-top: 0.5rem;
+}

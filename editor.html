@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editor – Lerninhalte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Lerninhalte Editor</h1>
+  <label>Klassenstufe: <input type="text" id="klasse" /></label><br />
+  <label>Thema: <input type="text" id="thema" /></label><br />
+  <label>Abschnittstitel: <input type="text" id="titel" /></label><br />
+  <label>Aufgabe(n): <textarea id="aufgaben" placeholder="Jede Aufgabe in neuer Zeile"></textarea></label><br />
+  <button onclick="exportXML()">XML erzeugen</button>
+
+  <pre id="xmlOutput"></pre>
+
+  <script src="script.js"></script>
+</body>
+</html>
