@@ -1,22 +1,33 @@
 body {
   font-family: sans-serif;
-  background: #f9f9f9;
   padding: 1rem;
+  background: #f9f9f9;
 }
 
-details {
-  margin-top: 1rem;
+nav {
+  background: #eee;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+nav a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+nav a.active {
+  color: white;
+  background: #007acc;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
 }
 
 section {
-  background: #fff;
-  margin-bottom: 2rem;
+  background: white;
   padding: 1rem;
+  margin-bottom: 2rem;
   border-radius: 6px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-h2 {
-  margin-bottom: 0.5rem;
-}
-
