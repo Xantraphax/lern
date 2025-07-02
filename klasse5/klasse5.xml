@@ -1,4 +1,4 @@
 <klasse name="Klasse 5">
-  <fach name="Mathematik" pfad="faecher/mathe/inhalte.xml" />
-  <fach name="Deutsch" pfad="faecher/deutsch/inhalte.xml" />
+  <fach name="Mathematik" pfad="klasse5/faecher/mathe/inhalte.xml" />
+  <fach name="Deutsch" pfad="klasse5/faecher/deutsch/inhalte.xml" />
 </klasse>
