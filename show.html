@@ -6,13 +6,51 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Lerninhalte anzeigen</h1>
+  <nav id="nav">Lade Navigation...</nav>
+  <h1 id="fachTitel">Lerninhalte</h1>
   <div id="container">Wird geladen…</div>
 
   <script>
-    async function ladeAbschnitte() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const aktuellesFach = urlParams.get("fach");
+
+    async function ladeFaecher() {
+      const res = await fetch("faecher.xml");
+      const xmlText = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(xmlText, "text/xml");
+
+      const faecher = xml.getElementsByTagName("fach");
+      const nav = document.getElementById("nav");
+      nav.innerHTML = "";
+
+      for (let fach of faecher) {
+        const name = fach.getAttribute("name");
+        const id = fach.getAttribute("id");
+        const pfad = fach.getAttribute("pfad");
+
+        const link = document.createElement("a");
+        link.href = `?fach=${id}`;
+        link.textContent = name;
+        if (id === aktuellesFach) {
+          link.classList.add("active");
+          document.getElementById("fachTitel").textContent = name;
+          ladeInhalte(pfad);
+        }
+
+        nav.appendChild(link);
+      }
+
+      // Falls kein Fach angegeben: erstes als Standard
+      if (!aktuellesFach && faecher.length > 0) {
+        const erstesFach = faecher[0].getAttribute("id");
+        window.location.search = `?fach=${erstesFach}`;
+      }
+    }
+
+    async function ladeInhalte(xmlPfad) {
       try {
-        const res = await fetch("data/inhalte.xml");
+        const res = await fetch(xmlPfad);
         const xmlText = await res.text();
         const parser = new DOMParser();
         const xml = parser.parseFromString(xmlText, "text/xml");
@@ -32,7 +70,7 @@
           section.appendChild(headline);
 
           const iframe = document.createElement("iframe");
-          iframe.src = datei;
+          iframe.src = `${xmlPfad.substring(0, xmlPfad.lastIndexOf("/") + 1)}${datei}`;
           iframe.width = "100%";
           iframe.height = "500";
           iframe.style.border = "1px solid #ccc";
@@ -46,7 +84,7 @@
       }
     }
 
-    ladeAbschnitte();
+    ladeFaecher();
   </script>
 </body>
 </html>
