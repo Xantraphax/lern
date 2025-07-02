@@ -2,19 +2,60 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Editor – Lerninhalte</title>
+  <title>Editor – HTML Lerninhalte</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Lerninhalte Editor</h1>
+  <h1>Editor – Lerninhalte (HTML-Datei erstellen)</h1>
+
   <label>Klassenstufe: <input type="text" id="klasse" /></label><br />
   <label>Thema: <input type="text" id="thema" /></label><br />
   <label>Abschnittstitel: <input type="text" id="titel" /></label><br />
-  <label>Aufgabe(n): <textarea id="aufgaben" placeholder="Jede Aufgabe in neuer Zeile"></textarea></label><br />
-  <button onclick="exportXML()">XML erzeugen</button>
+  <label>Aufgaben:<br />
+    <textarea id="aufgaben" rows="5" placeholder="Jede Aufgabe in neuer Zeile"></textarea>
+  </label><br />
+  <button onclick="exportHTML()">HTML-Datei erzeugen</button>
 
-  <pre id="xmlOutput"></pre>
+  <script>
+    function exportHTML() {
+      const klasse = document.getElementById("klasse").value.trim();
+      const thema = document.getElementById("thema").value.trim();
+      const titel = document.getElementById("titel").value.trim();
+      const aufgaben = document.getElementById("aufgaben").value.trim().split("\n");
 
-  <script src="script.js"></script>
+      let aufgabenHTML = "";
+      for (let aufgabe of aufgaben) {
+        aufgabenHTML += `<p>${aufgabe}</p>\n`;
+      }
+
+      const content = `
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>${thema} – Klasse ${klasse}</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section>
+    <h2>Klasse ${klasse}</h2>
+    <h3>${thema}</h3>
+    <details open>
+      <summary>${titel}</summary>
+      ${aufgabenHTML}
+    </details>
+  </section>
+</body>
+</html>
+`;
+
+      const blob = new Blob([content], { type: "text/html" });
+      const link = document.createElement("a");
+      const fileName = `klasse${klasse}-${thema.toLowerCase().replace(/\s+/g, "-")}.html`;
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+    }
+  </script>
 </body>
 </html>
