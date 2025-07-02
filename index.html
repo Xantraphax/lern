@@ -11,17 +11,17 @@
   </style>
 </head>
 <body>
-  <h1>Wähle deine Klassenstufe</h1>
-  <div class="grid" id="klassenGrid">Lade Klassen ...</div>
+  <h1>Wähle deinen Kurs</h1>
+  <div class="grid" id="klassenGrid">Lade Kurse ...</div>
 
   <script>
-    async function ladeKlassen() {
-      const res = await fetch("klassen.xml");
+    async function ladeKurse() {
+      const res = await fetch("kurse.xml");
       const xmlText = await res.text();
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlText, "text/xml");
 
-      const klassen = xml.getElementsByTagName("klasse");
+      const klassen = xml.getElementsByTagName("kurs");
       const grid = document.getElementById("klassenGrid");
       grid.innerHTML = "";
 
@@ -38,7 +38,7 @@
       }
     }
 
-    ladeKlassen();
+    ladeKurse();
   </script>
 </body>
 </html>
