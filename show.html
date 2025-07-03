@@ -34,11 +34,12 @@
       padding: 1rem;
     }
     h2 { margin-top: 2rem; }
-    iframe {
-      width: 100%;
-      height: 400px;
+    section {
+      background: white;
       border: 1px solid #ccc;
+      padding: 1rem;
       margin-bottom: 2rem;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -46,7 +47,6 @@
   <header>
     <h1 id="seitentitel">Lade Kurse...</h1>
   </header>
-    
 
   <nav id="themenNav">Lade Themen...</nav>
   <main id="inhalteContainer"></main>
@@ -101,7 +101,7 @@
       });
     }
 
-    async function ladeAbschnitte(pfad, themaname) {
+    async function ladeAbschnitte(pfad, themenname) {
       const res = await fetch(pfad);
       const xmlText = await res.text();
       const parser = new DOMParser();
@@ -109,21 +109,36 @@
 
       const abschnitte = xml.getElementsByTagName("abschnitt");
       const container = document.getElementById("inhalteContainer");
-      container.innerHTML = `<h2>${themaname}</h2>`;
+      container.innerHTML = `<h2>${themenname}</h2>`;
+
+      const base = pfad.substring(0, pfad.lastIndexOf("/") + 1);
 
       for (let abschnitt of abschnitte) {
         const titel = abschnitt.getAttribute("titel");
         const datei = abschnitt.getAttribute("datei");
-        const base = pfad.substring(0, pfad.lastIndexOf("/") + 1);
 
         const section = document.createElement("section");
         const h3 = document.createElement("h3");
         h3.textContent = titel;
-        const iframe = document.createElement("iframe");
-        //iframe.src = base + datei;
-        iframe.src = datei;
         section.appendChild(h3);
-        section.appendChild(iframe);
+
+        try {
+          const inhaltRes = await fetch(base + datei);
+          if (!inhaltRes.ok) throw new Error("Datei nicht gefunden");
+          const inhaltText = await inhaltRes.text();
+
+          // Inhalte als HTML einfügen
+          const inhaltDiv = document.createElement("div");
+          inhaltDiv.innerHTML = inhaltText;
+          section.appendChild(inhaltDiv);
+
+        } catch (e) {
+          const fehler = document.createElement("p");
+          fehler.style.color = "red";
+          fehler.textContent = `Fehler beim Laden des Inhalts: ${e.message}`;
+          section.appendChild(fehler);
+        }
+
         container.appendChild(section);
       }
     }
