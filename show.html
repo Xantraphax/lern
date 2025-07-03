@@ -123,7 +123,7 @@
         section.appendChild(h3);
 
         try {
-          const inhaltRes = await fetch(base + datei);
+          const inhaltRes = await fetch(datei);
           if (!inhaltRes.ok) throw new Error("Datei nicht gefunden");
           const inhaltText = await inhaltRes.text();
 
